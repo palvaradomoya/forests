@@ -8,3 +8,5 @@ The current project is intended to use all available resources of a computer clu
 It is still in a very early implementation stage and it will take a long time until it is usable.
 
 The first fully functional distributed implementation of the body-part classification approach proposed by Shotton et al. will be hopefully available by the end of 2018.
+
+Copyright 2018.  Tecnológico de Costa Rica, SIPLab
