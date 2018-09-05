@@ -243,5 +243,41 @@ void rdf::DistributionManager::transferTrainStart(ForestManager & pForest) {
 
        // }
     //}
+}
 
+void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
+    if (_world.size() <= 1) {
+      std::cout << "Need more than 1 processes to play around." << std::endl;
+    }
+    else {
+      // if(_world.rank() == 0){
+      //   std::cout << "Hey, I am MASTER" << '\n';
+      // }
+      // else{
+      //   std::cout << "Hey, I am:" << _world.rank() << '\n';
+      // }
+
+
+  bpc::FeaturesMat featMat;
+  if(_world.rank() == 0){
+    featMat.SetThresholdsNumRange(20, 200);
+    featMat.SetFeaturesNumRange(20, 200);
+    featMat.SetMatrixSize(10,10);
+    featMat.GenerateVectors();
+  }
+  broadcast(_world, featMat, 0);
+
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  featMat.Print();
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "------------------------------------------" << std::endl;
+  std::cout << "Process #" << _world.rank() << " says " << std::endl;
+
+
+    }
 }

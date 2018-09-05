@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   DistributionManager.h
  * Author: gabo
  *
@@ -75,6 +75,8 @@ namespace rdf {
         void transferBestFeature(rdf::bpc::BestFeatureMsg pFeature);
         void transferFinish();
 
+
+        void transferMatrices(int numberOfMatrices);
 
         /**
                 *  GETTERS AND SETTERS FOR MAIN VARIABLES

@@ -8,16 +8,20 @@
 
 
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
+
+
+
+      rdf::DistributionManager _manager;
+      _manager.transferMatrices(2);
 
 
 // std::cout << "Hello worlds!s" << '\n';
-    rdf::TrainManager _trainer;
-    _trainer.validateConfiguration();
-    _trainer.initPlatform();
-    _trainer.sendingNodes();
-   _trainer.sendingResults();
+   //  rdf::TrainManager _trainer;
+   //  _trainer.validateConfiguration();
+   //  _trainer.initPlatform();
+   //  _trainer.sendingNodes();
+   // _trainer.sendingResults();
 
     // rdf::DistributionManager _manager;
     // _manager.transferResources();
