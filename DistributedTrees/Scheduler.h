@@ -35,6 +35,9 @@
 };*/
 
 namespace rdf {
+
+  class QueueThread; //Forward declaration
+
     /*
      * This class control the threads its respective task and assing the new task a thread
      */

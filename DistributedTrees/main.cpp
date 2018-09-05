@@ -11,24 +11,26 @@
 int main(int argc, char** argv)
 {
 
-    //rdf::TrainManager _trainer;
-    //_trainer.validateConfiguration();
-    //_trainer.initPlatform();
-    //_trainer.sendingNodes();
-   // _trainer.sendingResults();
 
-    rdf::DistributionManager _manager;
-    _manager.transferResources();
+// std::cout << "Hello worlds!s" << '\n';
+    rdf::TrainManager _trainer;
+    _trainer.validateConfiguration();
+    _trainer.initPlatform();
+    _trainer.sendingNodes();
+   _trainer.sendingResults();
 
-    _manager.transferRanges();
+    // rdf::DistributionManager _manager;
+    // _manager.transferResources();
+    //
+    // _manager.transferRanges();
+    //
+    // rdf::Task _task;
+    // _task.setRank(1);
+    // _task.setTree(1);
+    // _task.setNode(2);
+    // _task.setStatus(0);
 
-    rdf::Task _task;
-    _task.setRank(1);
-    _task.setTree(1);
-    _task.setNode(2);
-    _task.setStatus(0);
-
-    _manager.transferNodes(_task);
+    // _manager.transferNodes(_task);
 
    // _manager.transferNodes(_task2);
    // _manager.transferNodes(_task3);

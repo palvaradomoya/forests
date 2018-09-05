@@ -12,15 +12,27 @@
 
 using namespace rdf;
 
-QueueThread::QueueThread(Scheduler& sched) : schedulerRef_(sched) {
+QueueThread::QueueThread() {
 }
 
-QueueThread::QueueThread(const QueueThread& orig) : schedulerRef_(orig.schedulerRef_){
+
+QueueThread::QueueThread(const QueueThread& orig) {
 }
 
-QueueThread::QueueThread(const QueueThread&& orig) : schedulerRef_(orig.schedulerRef_) {
-  structure = std::move(orig.structure);
-}
+
+
+//
+// QueueThread::QueueThread() : schedulerRef_(orig.schedulerRef_){
+//
+// }
+
+
+// QueueThread::QueueThread(const QueueThread& orig) : schedulerRef_(orig.schedulerRef_){
+// }
+
+// QueueThread::QueueThread(const QueueThread&& orig) : schedulerRef_(orig.schedulerRef_) {
+//   structure = std::move(orig.structure);
+// }
 
 QueueThread::~QueueThread() {
 }

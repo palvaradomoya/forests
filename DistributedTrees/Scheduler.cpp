@@ -16,9 +16,9 @@ namespace rdf {
     for (int i = 0; i < 8; i++) {
       // deberia recibir ref a Scheduler
       //o ref a ThreadQueue (Scheduler::threads)
-      //QueueThread thread;
-      //Scheduler::threads.push(thread);
-      Scheduler::threads.push(QueueThread(*this));
+      QueueThread thread;
+      Scheduler::threads.push(thread);
+      // Scheduler::threads.push(QueueThread(*this));
     }
   }
 
@@ -155,5 +155,5 @@ namespace rdf {
     }
   }
 
-  
+
 } /* rdf */

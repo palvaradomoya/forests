@@ -38,9 +38,11 @@ namespace rdf {
     class QueueThread {
     public:
         QueueThread();
-        QueueThread(Scheduler sched);
-        QueueThread(const QueueThread& orig);
-        QueueThread(const QueueThread&& orig);
+        QueueThread(const QueueThread&);
+        // QueueThread() : schedulerRef_(schedulerRef_) {};
+        // QueueThread(Scheduler& sched) : schedulerRef_(sched) { };
+        // QueueThread(const QueueThread& orig);
+        // QueueThread(const QueueThread&& orig);
         virtual ~QueueThread();
         std::thread thread;
         std::mutex mtx;
@@ -50,7 +52,7 @@ namespace rdf {
         rdf::Task task;
         std::priority_queue<rdf::Task> tasks;
         rdf::NodeResult nodeResult;
-        Scheduler& schedulerRef_;
+        // Scheduler& schedulerRef_;
 
 
         void run();
