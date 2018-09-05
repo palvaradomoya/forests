@@ -1,25 +1,13 @@
 /*
- * Copyright (C) 2018 Sygram
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
  * File:   ImageOperations.h
  * Author: Sygram
  *
- * Created on May 22, 2018, 12:17 AM
+ * Class: rdf::ImageOperations
+ * Needs revision: Needs further improvement. Maybe implement new operations.
+ * Description: This class implements a set of operations that can be applied
+ * to the points vector structure. For example:
+ * AssignTreeFlagsToImagesSet(): Is the function responsible for assigning
+ * trees availability flag to each image.
  */
 
 #ifndef IMAGEOPERATIONS_H
@@ -33,14 +21,37 @@ namespace rdf {
 
   class ImageOperations {
   public:
+
+    //<! Constructor
     ImageOperations();
+
+    //<! Copy Constructor
     ImageOperations(const ImageOperations& orig);
-    void SetImagesDistribution(std::vector<Estructura::Node>&, int, int);
+
+    /*!
+      * Assigns a set of random trees availability flags according to a percentage.
+      * It aslo spreads the percentages among the number of trees.
+      * \param percentage Percentage of the set of images for each tree.
+      * \param numTrees Number of trees.
+      * \param &imagesSet Images with points structure vector.
+      */
+    void SetImagesDistribution(
+      std::vector<Estructura::Node>& imagesSet, int percentage, int numTrees);
     virtual ~ImageOperations();
   private:
-    void AssignTreeFlagsToImagesSet(std::vector<Estructura::Node>&, int, int, int);
+
+    //<! Sets trees availability flag to an image according to the given
+    //<! percentage.
+    void AssignTreeFlagsToImagesSet(
+      std::vector<Estructura::Node>& imagesSet, int percentageNum,
+      int treeNum, int totalSize);
+
+    //<! Static function for initializing seed for random distribution.
+    //<! It is only initialized once.
     static std::mt19937 InitRandomSeed();
-    static std::mt19937 mt_; //MersenneTwister pseudo-random engine
+
+    //<! MersenneTwister pseudo-random engine
+    static std::mt19937 mt_;
 
   };
 

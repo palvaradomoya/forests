@@ -1,25 +1,8 @@
 /*
- * Copyright (C) 2018 Sygram
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
  * File:   FeaturesMat.h
  * Author: Sygram
  *
- * Created on May 8, 2018, 11:45 PM
+ *
  */
 
 #ifndef FEATURESMAT_H
@@ -51,31 +34,80 @@ namespace rdf {
 
     class FeaturesMat {
     public:
+      //! Default constructor. Initializes to 0.
       FeaturesMat();
+
+      //! Copy constructor.
       FeaturesMat(const FeaturesMat& orig);
+
+      //! Constructor. Complete. This constructor sets all the required
+      //! parameters needed to initialize the class fully.
       FeaturesMat(int fn, float fh, float fl, int tn, float th, float tl);
-      void SetMatrixSize(int x, int y); // x = Features // y = Thresholds
-      void SetNumThresholds(int); //size of thresholds vector
-      void SetNumFeatures(int); //size of features vector
-      void SetThresholdsNumRange(float high, float low);
-      void SetFeaturesNumRange(float high, float low);
+
+      //! Sets the size of the matrix.
+      //! \param x is the number of Features
+      //! \param y is the number of Thresholds
+      void SetMatrixSize(int x, int y);
+
+
+      //! Sets the number of thresholds
+      void SetNumThresholds(int);
+
+      //! Sets the number of features
+      void SetNumFeatures(int);
+
+      //! Sets the floating point range of the random thresholds.
+      //! \param low for the minimun threshold value.
+      //! \param high for the maximun threshold value.
+      void SetThresholdsNumRange(float low, float high);
+
+      //! Sets the floating point range of the random features.
+      //! \param low for the minimun threshold value.
+      //! \param high for the maximun threshold value.
+      void SetFeaturesNumRange(float low, float high);
+
+      //! This function generates the random vectors for thresholds and features.
+      //! \sa GenerateThresholdsVector(), GenerateFeaturesVector()
       void GenerateVectors();
-      // float EvaluatePoint(int);
-      void Print();
-      virtual ~FeaturesMat();
-      
+
+      //! Returns the floating point threshold value at given position.
+      //! \param x position of threshold.
+      //! \return The threshold at position x.
       inline float GetThresholdAt(int x){
         return thresholds_[x];
       }
+
+      //! Returns the feature at given position.
+      //! \param x position of feature.
+      //! \return The feature at position x.
       inline Features GetFeaturesAt(int x){
         return features_[x];
       }
 
+      //! This function prints the floating point values of the features matrix.
+      //! Including both Thresholds and Features.
+      void Print();
+
+      //! Destructor.
+      virtual ~FeaturesMat();
+
+
     private:
+      //!<  TODO: Justify friendship
       template <class T> friend class Matrix;
+
+      //!< Friend class for boost serialization
       friend class boost::serialization::access;
+
+      //! Private method.
+      //! Generates random vector of thresholds according within set ranges.
       void GenerateThresholdsVector();
+
+      //! Private method.
+      //! Generates random vector of features according within set ranges.
       void GenerateFeaturesVector();
+
+
       template<class Archive>
       void serialize(Archive & ar, const unsigned int version)
       {
@@ -89,17 +121,33 @@ namespace rdf {
         ar & featuresHighRange_;
       }
 
-            /* Data members */
-            std::vector<float> thresholds_;
-            std::vector<Features> features_;
-            int numFeatures_;     // ROWS / X-Axis
-            int numThresholds_;   // COLS / Y-Axis
+      //!< Thresholds vector.
+      std::vector<float> thresholds_;
 
+      //!< Features vector.
+      std::vector<Features> features_;
+
+      //!< Number/size of features vector.
+      int numFeatures_;
+
+      //!< Number/size of thresholds vector.
+      int numThresholds_;
+
+      //!< Minimun range value for thresholds,
       float thresholdsLowRange_;
+
+      //!< Maximum range value for thresholds,
       float thresholdsHighRange_;
+
+      //!< Minimun range value for features,
       float featuresLowRange_;
+
+      //!< Maximum range value for features,
       float featuresHighRange_;
-      static std::mt19937 mt_; //Mersenne twister pseudo-random engine
+
+      //!< Mersenne twister pseudo-random engine.
+      //!< For generating ranndom numbers and seeds.
+      static std::mt19937 mt_;
     };
 
   } /* bpc */

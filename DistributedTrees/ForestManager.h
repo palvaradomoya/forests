@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   TreeManager.h
  * Author: gabo
@@ -28,12 +22,12 @@
 using namespace std;
 
 namespace rdf {
-    /** Thisclass allow manage train nodes, trees. 
+    /** Thisclass allow manage train nodes, trees.
         */
     class ForestManager {
 
         private:
-            vector<rdf::Task>                    _matrixSteps; 
+            vector<rdf::Task>                    _matrixSteps;
             vector<vector<rdf::NodeResult>>      _results;
             bool                            _status;
             Task                            _result;
@@ -91,4 +85,3 @@ namespace rdf {
 }
 
 #endif /* TREEMANAGER_H */
-

@@ -1,9 +1,11 @@
-/* 
+/*
  * File:   StrategyImage.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ * 
+ * Class: StrategyImage
+ * Needs revision: Minimal.
+ * Description: Abstract class for images handling. It defines an interface
+ * for READING images of different kinds.
+ * DepthImage and LabelImage classes inherit from this class.
  *
  */
 
@@ -26,11 +28,9 @@ namespace rdf {
         StrategyImage(const StrategyImage& orig);
         virtual ~StrategyImage();
         virtual void readImage(int heigth, int width, std::string direction, cv::Mat& image) = 0;
-
     private:
 
     };
 }
 
 #endif /* STRATEGYIMAGE_H */
-

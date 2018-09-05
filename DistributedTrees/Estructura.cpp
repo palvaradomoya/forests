@@ -14,7 +14,7 @@ rdf::Estructura::~Estructura() {
 }
 
 /**
- * Funtion see to depth image
+ * Function see to depth image
  * @param height
  * @param width
  * @param imageDepth
@@ -31,18 +31,18 @@ void rdf::Estructura::seeImageDepth(int height, int width, cv::Mat imageDepth){
             }
         }
     }
-    
+
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             cv::Scalar intensity = imageDepth.at<unsigned short>(i, j);
             int valor = intensity.val[0];
             valor = ((255*valor)/mayor);
             cv::Scalar temp = valor;
-            depTem.at<uchar>(i,j)= temp.val[0];     
+            depTem.at<uchar>(i,j)= temp.val[0];
         }
     }
-    cv::namedWindow( "Original image", CV_WINDOW_AUTOSIZE ); 
-    cv::imshow( "Original image", depTem ); 
+    cv::namedWindow( "Original image", CV_WINDOW_AUTOSIZE );
+    cv::imshow( "Original image", depTem );
     cv::waitKey(10000);
 }
 
@@ -51,7 +51,7 @@ void rdf::Estructura::seeImageDepth(int height, int width, cv::Mat imageDepth){
  * @param imageLabel
  */
 void rdf::Estructura::seeImageLabel(cv::Mat& imageLabel){
-    cv::namedWindow( "Original image", CV_WINDOW_AUTOSIZE ); 
-    cv::imshow( "Original image", imageLabel ); 
+    cv::namedWindow( "Original image", CV_WINDOW_AUTOSIZE );
+    cv::imshow( "Original image", imageLabel );
     cv::waitKey(10000);
 }

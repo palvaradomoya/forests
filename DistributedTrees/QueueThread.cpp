@@ -1,5 +1,10 @@
-#include <exception>
+/*
+ * File:   QueueThread.cpp
+ * Author: will
+ *
+ */
 
+#include <exception>
 #include "QueueThread.h"
 #include "Scheduler.h"
 #include "NodeTraineeBPC.h"
@@ -10,8 +15,24 @@ using namespace rdf;
 QueueThread::QueueThread() {
 }
 
+
 QueueThread::QueueThread(const QueueThread& orig) {
 }
+
+
+
+//
+// QueueThread::QueueThread() : schedulerRef_(orig.schedulerRef_){
+//
+// }
+
+
+// QueueThread::QueueThread(const QueueThread& orig) : schedulerRef_(orig.schedulerRef_){
+// }
+
+// QueueThread::QueueThread(const QueueThread&& orig) : schedulerRef_(orig.schedulerRef_) {
+//   structure = std::move(orig.structure);
+// }
 
 QueueThread::~QueueThread() {
 }
@@ -30,16 +51,16 @@ void init(std::vector<Estructura::Node> &structure, rdf::Task& task, rdf::NodeRe
     _node.SetNodeId(task.getNode());
     _node.GetMatrix().AddFeaturesMat(task.getFeatureMatrix());
     //std::cout << "SIZE " << structure.size() <<"\n";
-    
+
     cv::Mat img = structure[0].imageLabel;
-    
-    
+
+
     rdf::bpc::Trainer trainer;
     trainer.Train(&_node,structure, nodeResult); // cambiar para meter nodeResult
-    
+
 //    nodeResult = nodeResultTemp;
-    //std::cout << "        SIZE " << img<< "\n"; 
-    
+    //std::cout << "        SIZE " << img<< "\n";
+
 }
 
 /**
@@ -47,14 +68,14 @@ void init(std::vector<Estructura::Node> &structure, rdf::Task& task, rdf::NodeRe
  */
 void QueueThread::run() {
     std::unique_lock<std::mutex> lck(mtx);
-    
-    
+
+
     rdf::bpc::NodeTrainee<rdf::bpc::Cell>   _node;
     _node.SetTreeId(task.getTree());
     _node.SetNodeId(task.getNode());
     _node.GetMatrix().AddFeaturesMat(task.getFeatureMatrix());
-    
-    
+
+
     //while (1) {
     //lck.lock();
 
@@ -66,7 +87,7 @@ void QueueThread::run() {
         //lck.lock();
     }
     ready = false;
-    
+
     thread = std::thread(init, std::ref(structure), std::ref(task), std::ref(nodeResult));
     if (QueueThread::thread.joinable()) {
         //Scheduler scheduler;
@@ -85,14 +106,14 @@ void QueueThread::run() {
  * @param task
  * @param tasks
  */
-void QueueThread::connect(std::vector<Estructura::Node> structure, rdf::Task task, 
+void QueueThread::connect(std::vector<Estructura::Node> structure, rdf::Task task,
 std::priority_queue<rdf::Task> tasks, rdf::NodeResult &nodeResult) {
     QueueThread::structure = structure;
     QueueThread::task = task;
     QueueThread::tasks = tasks;;
 
-    
-    
+
+
     sync();
     run();
 

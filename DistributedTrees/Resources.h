@@ -1,10 +1,11 @@
-/* 
+/*
  * File:   Resources.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ * Authors: Willbert Varela
  *
+ * Class: rdf::Resources
+ * Needs revision: Probably not.
+ * Description: This class creates documents with information about: number
+ * of CPUs and total free memory.
  */
 
 #ifndef RESOURCES_H
@@ -36,7 +37,7 @@ namespace rdf {
         void createDocuments();
         void loadDocuments(std::ifstream& meminfo, std::ifstream& cpuinfo);
         void readDocument(std::ifstream& file, std::string& text, int tipo); // tipo 0=memoria 1= cpu
-        void writeDocument(std::string final);
+        void writeDocument(std::string finalStr);
         void deleteDocument(); //remove( "myfile.txt" )
         void readDocumentEnd(std::vector<std::string>& vector);
         void convert();
@@ -45,4 +46,3 @@ namespace rdf {
 }
 
 #endif /* RESOURCES_H */
-

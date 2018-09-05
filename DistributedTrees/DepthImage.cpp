@@ -9,8 +9,9 @@ rdf::DepthImage::DepthImage(const DepthImage& orig) {
 
 rdf::DepthImage::~DepthImage() {
 }
+
 /**
- * Funtion to read depth image
+ * Function for reading depth images.
  * @param direction
  * @param imageLabel
  */

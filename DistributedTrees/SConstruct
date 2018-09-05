@@ -1,21 +1,53 @@
 
-libraries 		= ['libboost_mpi','libboost_serialization',"libopencv_calib3d","libopencv_contrib","libopencv_core","libopencv_features2d","libopencv_flann","libopencv_gpu","libopencv_highgui","libopencv_imgproc","libopencv_legacy","libopencv_ml","libopencv_nonfree","libopencv_objdetect","libopencv_ocl","libopencv_photo","libopencv_stitching","libopencv_superres","libopencv_ts","libopencv_video","libopencv_videostab","atomic","tbb","libGL","libGLU","pthread","m","dl"]
-library_paths 	        = ['/usr/lib/x86_64-linux-gnu/','/usr/local/include', '/usr/local/lib', '/opt/local/include','${MPI_INCLUDE_PATH}', 
+libraries 		= ['libboost_mpi','libboost_serialization',"libopencv_calib3d","libopencv_contrib","libopencv_core",
+                    "libopencv_features2d","libopencv_flann","libopencv_gpu","libopencv_highgui","libopencv_imgproc",
+                    "libopencv_legacy","libopencv_ml","libopencv_objdetect","libopencv_ocl",
+                    "libopencv_photo","libopencv_stitching","libopencv_superres","libopencv_ts","libopencv_video",
+                    "libopencv_videostab","atomic","pthread","m","dl"]
+library_paths 	        = ['/usr/lib/x86_64-linux-gnu/','/usr/local/include', '/usr/local/lib', '/opt/local/include','${MPI_INCLUDE_PATH}',
                           '${Boost_INCLUDE_DIRS}' , '${USER_INCLUDE_PATH}']
 cppDefines 		= {}
-cppFlags 		= ['-Wall']
+# cppFlags 		= ['-Wall']
 cxxFlags 		= ['-std=c++11','-L','-fopemmp']
+cppIncludes     = ['configurationManager', 'resourcesManager', 'imagesManager', 'training']
 
 common_env = Environment()
 common_env.Replace(CXX                  = 'mpicxx')
 common_env.Append( LIBS 	        = libraries)
 common_env.Append( LIBPATH 		= library_paths)
 common_env.Append( CPPDEFINES 	        = cppDefines)
-common_env.Append( CPPFLAGS 		= cppFlags)
+# common_env.Append( CPPFLAGS 		= cppFlags)
 common_env.Append( CXXFLAGS 		= cxxFlags)
+common_env.Append( CPPPATH = cppIncludes)
+# common_env.Append(CPPPATH ='resourcesManager')
+# common_env.Append(CPPPATH ='imagesManager')
+# common_env.Append(CPPPATH ='training')
 
 
-	
+def AllSources(node='.', pattern='*'):
+    result = [AllSources(dir, pattern)
+              for dir in Glob(str(node)+'/*')
+              if dir.isdir()]
+    result += [source
+               for source in Glob(str(node)+'/'+pattern)
+               if source.isfile()]
+    return result
+
+
+def GlobRecursive(pattern, node='.'):
+    results = []
+    for f in Glob(str(node) + '/*', source=True):
+        if type(f) is SCons.Node.FS.Dir:
+            results += GlobRecursive(pattern, f)
+    results += Glob(str(node) + '/' + pattern, source=True)
+    return results
+
+
+sources = Glob('*.cpp')
+sources.extend(Glob('resourcesManager/*.cpp'))
+sources.extend(Glob('imagesManager/*.cpp'))
+sources.extend(Glob('configurationManager/*.cpp'))
+sources.extend(Glob('training/*.cpp'))
 
 #main = common_env.Program( "main", [ "example2.cpp" ] )
 
@@ -25,15 +57,24 @@ common_env.Append( CXXFLAGS 		= cxxFlags)
 #AlwaysBuild( test )
 
 
-#main0 = common_env.Program( "main0", ["main.cpp" , "DistributionManager.cpp", "Task.cpp", "configData.cpp", "ImageDispatcher.cpp","Collection.cpp","configValidator.cpp","DepthImage.cpp", "Estructura.cpp","Features.cpp","FeaturesMat.cpp", "ForestManager.cpp", "Image.cpp" , "LabelImage.cpp" , "NodeResource.cpp" , "PointsSelect.cpp" , "StrategyImage.cpp" , "treeScheduler.cpp", "ImageGetter.cpp" , "Initializator.cpp" , "userValidator.cpp","NodeResult.cpp"])          
+#main0 = common_env.Program( "main0", ["main.cpp" , "DistributionManager.cpp", "Task.cpp", "configData.cpp", "ImageDispatcher.cpp","Collection.cpp","configValidator.cpp","DepthImage.cpp", "Estructura.cpp","Features.cpp","FeaturesMat.cpp", "ForestManager.cpp", "Image.cpp" , "LabelImage.cpp" , "NodeResource.cpp" , "PointsSelect.cpp" , "StrategyImage.cpp" , "treeScheduler.cpp", "ImageGetter.cpp" , "Initializator.cpp" , "userValidator.cpp","NodeResult.cpp"])
 
-main0 = common_env.Program( "main0", Glob("*.cpp"))
+# main0 = common_env.Program( "main0", Glob("*.cpp"))
+# main0 = common_env.Program( "main0", Glob("*.cpp"), Glob("configurationManager/*.cpp"), Glob("imagesManager/*.cpp"), Glob("resourcesManager/*.cpp"), Glob("training/*.cpp"))
+# mainn = common_env.Program(target='mainn', source=[Glob("*.cpp"),
+#                                           Glob("configurationManager/*.cpp"),
+#                                           Glob("imagesManager/*.cpp"),
+#                                           Glob("resourcesManager/*.cpp"),
+#                                           Glob("training/*.cpp")])
 
+# mainn = common_env.Program( target="mainn", source=GlobRecursive('.', '*.cpp'))
 
-test0 = common_env.Command( target = "output0",
-                source = "./main0",
-                action = ["mpiexec -np 4 ./main0"] )
+mainn = common_env.Program( target="mainn", source=sources)
+# mainn = common_env.Program( "mainn", source=AllSources('.', '*.cpp'))
+
+test = common_env.Command( target = "output0",
+                source = "mainn",
+                action = ["mpiexec -np 4 ./mainn"] )
+                # action = ["./mainn"] )
                 #action = ["mpiexec -hostfile host_file ./main0"] )
-AlwaysBuild( test0 )
-
-
+AlwaysBuild( test )

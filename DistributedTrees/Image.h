@@ -1,10 +1,11 @@
-/* 
+/*
  * File:   Image.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
  *
+ * Class: Image
+ * Needs revision: Yes. Refactor and more.
+ * Description: This class generates the image point structure for the shotton
+ * algorithm. It reads from a list of paths for loading depth and labeled
+ * images.
  */
 
 #ifndef IMAGE_H
@@ -29,6 +30,8 @@ namespace rdf {
         virtual ~Image();
         void getStructura(std::vector<rdf::Estructura::Node>& structure, rdf::Estructura::DataMaster dataMaster);
     private:
+      //! This function loads the images and points structure.
+      //! FIXME: Needs revision.
         void generatedStructureShotton(std::vector<rdf::Estructura::Node>& structure,
                 std::string type_Algorithm, int NumPoints, int height, int width,
                 int NumTree, std::string pathDepth, std::string pathlabel,
@@ -37,4 +40,3 @@ namespace rdf {
     };
 }
 #endif /* IMAGE_H */
-

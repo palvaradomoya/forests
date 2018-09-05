@@ -1,11 +1,13 @@
 
-/* 
+/*
  * File:   Estructura.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ * Authors: Willberth Varela
  *
+ * Class: Estructura
+ * Needs revision: Probably not.
+ * Description: This class contains the structure for holding different
+ * types of images. It also has seeImageDepth and seeImageLabel, which are
+ * methods for viewing those images in framed windows.
  */
 
 #ifndef ESTRUCTURA_H
@@ -21,7 +23,7 @@
 namespace rdf {
 
     /*
-     * This class works to create the structure of diferent images 
+     * This class works to create the structure of diferent images
      */
     class Estructura {
     public:
@@ -69,4 +71,3 @@ namespace rdf {
 }
 
 #endif /* ESTRUCTURA_H */
-

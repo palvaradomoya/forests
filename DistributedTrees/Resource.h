@@ -1,23 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   Resource.h
- * Author: will
+ * Author: Wilberth Varela.
  *
- * Created on 31 de mayo de 2018, 09:13 AM
+ *  Class: rdf::Resource
+ *  Needs revision: No, for the moment.
+ *  Description: This class contains information about different types of
+ *  resources. Such as: Total memory, total free memory and # of CPUs.
  */
 
 #ifndef RESOURCE_H
 #define RESOURCE_H
-#include <iostream>     // std::cout
+#include <iostream>
 #include <boost/serialization/access.hpp>
 
 namespace rdf {
-    
+
 
     class Resource {
         private:
@@ -31,17 +28,23 @@ namespace rdf {
                     ar & Frequency;
                     ar & rank;
             }
+           
+
+        public:
             int MemTotal;
             int MemFree;
             int CPUs;
             int Frequency; //la velocidad es de kB
             int rank;
-            
-        public:
             Resource();
             Resource(const Resource& orig);
-            
+
             virtual ~Resource();
+
+            /**
+             * This function displays the resource information of each node
+             * from the cluster.
+             */
             void displayResource();
 
             int getCPUs() const {
@@ -55,7 +58,7 @@ namespace rdf {
             int getFrequency() const {
                 return Frequency;
             }
-
+            //REVIEW: Why set frequency? What for?
             void setFrequency(int Frequency) {
                 this->Frequency = Frequency;
             }
@@ -77,9 +80,8 @@ namespace rdf {
             }
 
 
-        
+
 
     };
 }
 #endif /* RESOURCE_H */
-
