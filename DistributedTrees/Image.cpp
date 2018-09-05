@@ -23,9 +23,9 @@ void rdf::Image::getStructura(std::vector<Estructura::Node>& structure, Estructu
     std::string PathDepthImage = "/home/RDF/code/DistributedTrees/Database/pathDepth.txt";
     std::string PathLabelImage = "/home/RDF/code/DistributedTrees/Database/pathDepth.txt";
 
-
+    //REVIEW: Why structureTemp? "temp"?
     std::vector<Estructura::Node> structureTemp;
-    
+
     //load structure of the shotton algorithm
     if (dataMaster.type_Algorithm.compare(0, 7, "shotton") == 0) {
         generatedStructureShotton(structureTemp, dataMaster.type_Algorithm, dataMaster.NumPoints, dataMaster.height, dataMaster.width,
@@ -36,8 +36,8 @@ void rdf::Image::getStructura(std::vector<Estructura::Node>& structure, Estructu
 
 /**
  * Funtion make the structure of shotton algorithm
- * @param structure
- * @param type_Algorithm
+ * @param structure Reference. Holds the array of all images including their point structure.
+ * @param type_Algorithm type of the algorithm to use
  * @param NumPoints
  * @param height
  * @param width
@@ -65,20 +65,27 @@ void rdf::Image::generatedStructureShotton(std::vector<Estructura::Node>& struct
     std::vector<std::string> directionesLabel;
     int NumLines = 0;
 
+    // ImageGetter is used for loading the path location of different images
+    // The paths are stored in directionesDepth and directionesLabel vectors.
     imageGetter.readPath(directionesDepth, NumLines, pathDepth, startRead, endRead);
     imageGetter.readPath(directionesLabel, NumLines, pathlabel, startRead, endRead);
-    
+
     //carga las imagenes cona las direcciones
+    //FIXME: Por que for unicamente para tamaño de direcciones de images de depth.
+    //FIXME: Una única referencia es utilizada para múltiples objetos.
+    //FIXME: Misma referencia es utilizada para almacenar diferentes valores.
+    //FIXME: Misma referencia es "pusheada" a la estructura, aunque con diferente valor
+    //FIXME: Revisar si existen memory leaks o si se están haciendo copias.
     for (unsigned int k = 0; k < directionesDepth.size(); k++) {
 
         Estructura::Node dataAll;
         std::vector<Estructura::Pixel> puntos;
-        
+
         Estructura es;
 
         PointsSelect pointSelect;
-        
-        
+
+
         //leer la imagen de profundidad
         collection.setImage(&depthImage);
         collection.readImage(height, width, directionesDepth[k], imageDepth);
@@ -92,7 +99,7 @@ void rdf::Image::generatedStructureShotton(std::vector<Estructura::Node>& struct
         //es.seeImageDepth(height,width,imageDepth);
         //es.seeImageLabel(imageLabel);
 
-        
+
 
         pointSelect.generatedPoints(type_Algorithm, puntos, NumPoints, height, width, NumTree);
 
@@ -109,4 +116,3 @@ void rdf::Image::generatedStructureShotton(std::vector<Estructura::Node>& struct
 
 
 }
-

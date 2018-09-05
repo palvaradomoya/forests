@@ -1,9 +1,10 @@
-//* 
+/*
  * File:   LabelImage.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ *
+ * Class: rdf::LabelImage
+ * Needs revision: Probably not.
+ * Description: This class implements readImage() abstract method in order
+ * to read a label image
  *
  */
 
@@ -18,9 +19,6 @@
 
 namespace rdf {
 
-    /*
-     * This class load label image 
-     */
     class LabelImage : public StrategyImage {
     public:
         LabelImage();
@@ -35,6 +33,3 @@ namespace rdf {
 }
 
 #endif /* LABELIMAGE_H */
-
-
-

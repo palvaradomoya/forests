@@ -1,14 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   ImageDispatcher.cpp
  * Author: gabo
- * 
- * Created on May 22, 2018, 11:13 AM
+ *
+ *
  */
 
 #include <vector>
@@ -25,24 +19,17 @@ rdf::ImageDispatcher::ImageDispatcher(const ImageDispatcher& orig) {
 }
 rdf::ImageDispatcher::~ImageDispatcher() {}
 
-/**
- * This function intents analyze resource from each nodes in order to determinate how many images can charge
- * @param pResource : object that contains information about available memory in the node.
- * @return int : it is the number of images that can charge.
- */
+
 int rdf::ImageDispatcher::analyzeResource(rdf::Resource &pResource) {
-    // SOME KIND OF ANALYSIS OVER THE RESOURCE TO RETURN AN AMOUN NUMBER OF IMAGES
-    
+    // SOME KIND OF ANALYSIS OVER THE RESOURCE TO RETURN AN AMOUNT NUMBER OF IMAGES
+
     int memAvaibale = pResource.getMemFree(); // KB
-    int imageSize   = 10000;   // KB
+    int imageSize   = IMAGE_SIZE; // 1 KB
     return memAvaibale / imageSize;
 
 }
 
-/**
- * This function assing the same number of images for each process and save them in a vector with a std::pair object
- * @param pIntervals : how many process or intervals.
- */
+
 void rdf::ImageDispatcher::assignRanges(int pIntervals,bool pFlag) {
     if(pFlag){
             int multiple = TRAIN_IMAGES_AMOUNT/pIntervals;
@@ -52,15 +39,15 @@ void rdf::ImageDispatcher::assignRanges(int pIntervals,bool pFlag) {
                     int b = i + multiple-1;
                     std::pair<int,int> range(a,b);
                     _imagesRanges.push_back(range);
-                }   
+                }
             }
     }
-    
+
     else {
         int imageSum = 0;
         for(int i = 0; i< _resourceVector.size(); i++){
             Resource temp = _resourceVector[i];
-            
+
             if(i==0){
                 int imageAmount = analyzeResource(temp);
                 int    a = i;
@@ -78,10 +65,10 @@ void rdf::ImageDispatcher::assignRanges(int pIntervals,bool pFlag) {
                 imageSum = imageAmount  + imageAmount;
                 std::pair<int,int> range(a,b);
                 _imagesRanges.push_back(range);
-                
+
             }
-            
-        } 
+
+        }
     }
 }
 
@@ -93,10 +80,6 @@ void rdf::ImageDispatcher::showRanges() {
 
 void rdf::ImageDispatcher::addResource(rdf::Resource& pResource) {
     _resourceVector.push_back(pResource);
-    
+
 
 }
-
-
-
-

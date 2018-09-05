@@ -11,7 +11,7 @@ rdf::LabelImage::~LabelImage() {
 }
 
 /**
- * Funcion para la lectura de la imagen de etiquetas.
+ * Function for reading labeled images.
  * @param direction
  * @param imageLabel
  */
@@ -21,5 +21,5 @@ void rdf::LabelImage::readImage(int height, int width, std::string direction, cv
     imageLbl = cv::imread(rute.c_str());
 
     image = imageLbl;
-    
+
 }

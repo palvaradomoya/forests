@@ -1,11 +1,12 @@
 
-/* 
+/*
  * File:   ImageGetter.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
  *
+ * Class: rdf::ImageGetter
+ * Needs revision: Maybe.
+ * Description: This class contains a method for reading tbe location of all
+ * images from the database.The paths are read line by line, given a certain
+ * range. Each line contains a path to a different image.
  */
 
 #ifndef IMAGEGETTER_H
@@ -18,8 +19,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <fstream>      // std::ifstream
-#include <iostream>     // std::cout
+#include <fstream>
+#include <iostream>
 #include <vector>
 #include <stdio.h>
 
@@ -45,6 +46,3 @@ namespace rdf {
 }
 
 #endif /* IMAGEGETTER_H */
-
-
-

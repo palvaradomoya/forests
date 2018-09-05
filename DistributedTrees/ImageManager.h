@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/* 
+/*
  * File:   ImageManager.h
  * Author: gabo
  *
- * Created on May 27, 2018, 6:55 AM
+ *  Class: ImageManager
+ *  Needs revision: Yes. Up for deletion.
+ *  Description: This class is used to show some images from somwhere.
+ *  NOTE: Should find out where this is used
+ *
  */
 
-#include <fstream>      // std::ifstream
-#include <iostream>     // std::cout
+#include <fstream>
+#include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -33,8 +32,10 @@
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
 
-class ImageManager {
-public:
+namespace rdf {
+
+  class ImageManager {
+  public:
     ImageManager();
     ImageManager(const ImageManager& orig);
     virtual ~ImageManager();
@@ -42,29 +43,33 @@ public:
     void setRange(std::pair<int,int> pRange);
     void loadImages();
     std::vector<Estructura::Node> getStructure() const {
-        return structure;
+      return structure;
     }
 
     void setStructure(std::vector<Estructura::Node> structure) {
-        this->structure = structure;
+      this->structure = structure;
     }
 
-private:
-   
+  private:
+
     Image image; //para sacar la estructura
     Estructura estructura; //para visualizar la imagen
     cv::Mat img;  //para sacar la imagen de la estrctura
     std::vector<Estructura::Node> structure; // vector para sacar la estructura
     Estructura::DataMaster dataMaster;
-            
-
-            //struture, algortimo, cantidad puntos, height, width, numero de arboles, inicio de lectura, fin de lectura, arbol, node.
-              // optine la estructura
 
 
-            
+    //struture, algortimo, cantidad puntos, height, width,
+    // numero de arboles, inicio de lectura, fin de lectura,
+    //arbol, node.
+    // optine la estructura
 
-};
+
+
+
+  };
+
+} /* rdf */
+
 
 #endif /* IMAGEMANAGER_H */
-

@@ -1,10 +1,10 @@
-/* 
+/*
  * File:   Collection.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ * Authors:
  *
+ * Class: Collection
+ * Needs revision: Ask coordinator about member access in .cpp
+ * Description: No usage. Needs revision.
  */
 
 #ifndef COLLECTION_H
@@ -16,8 +16,8 @@
 namespace rdf {
 
     /**
-     *This class works for implement the abstraction of diferent images  
-     * 
+     *This class works for implement the abstraction of diferent images
+     *
      */
     class Collection {
     public:

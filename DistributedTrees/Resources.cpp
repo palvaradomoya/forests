@@ -1,3 +1,9 @@
+/*
+ * File:   Resources.cpp
+ * Author: will
+ *
+ */
+
 #include <cstring>
 #include <string>
 
@@ -29,7 +35,7 @@ void rdf::Resources::getResources(std::vector<std::string>& infoNodoCluster) {
 
     readDocument(meminfo, all, 0);
     readDocument(cpuinfo, all, 1);
-    
+
     meminfo.close();
     cpuinfo.close();
     writeDocument(all);
@@ -42,7 +48,7 @@ void rdf::Resources::getResources(std::vector<std::string>& infoNodoCluster) {
 }
 
 /**
- * This method convert the files general to files with 
+ * This method convert the files general to files with
  * the all information a 2 files only with the information specify
  */
 void rdf::Resources::convert() {
@@ -73,17 +79,17 @@ void rdf::Resources::convert() {
             }
         }
     }
-    
+
     meminfo.close();
     cpuinfo.close();
-    
+
     std::ofstream omeminfo, ocpuinfo;
     omeminfo.open("meminfo.txt");
     ocpuinfo.open("cpuinfo.txt");
-    
+
     omeminfo << mem;
     ocpuinfo << cpu;
-    
+
     omeminfo.close();
     ocpuinfo.close();
 
@@ -125,10 +131,10 @@ void rdf::Resources::readDocument(std::ifstream& file, std::string& text, int ti
             while (getline(check1, value, ' ')) {
                 if (value.compare(0,9,"MemTotal:") == 0) { //value == "MemTotal:"
                     temporal += line + '\n';
-                    
+
                 } else if (value.compare(0,8,"MemFree:")== 0) {
                     temporal += line + '\n';
-                    
+
                 }
             }
         }
@@ -138,10 +144,10 @@ void rdf::Resources::readDocument(std::ifstream& file, std::string& text, int ti
             getline(file, line); //Lee la linea
             std::string value;
             std::stringstream check1(line);
-            
+
             while (getline(check1, value, ' ')) {
                 if (value.compare(0,9,"processor") == 0) {
-                    temporal += line + '\n'; 
+                    temporal += line + '\n';
                 } else if (value.compare(0,6,"cpuMHz") == 0) {
                     temporal += line + '\n';
                 } else if (value.compare(0,8,"cpucores") == 0) {
@@ -173,7 +179,7 @@ void rdf::Resources::deleteDocument() {
 }
 
 /**
- * This method read file with information necesary for send to cluster nodo master 
+ * This method read file with information necesary for send to cluster nodo master
  * @param vector
  */
 void rdf::Resources::readDocumentEnd(std::vector<std::string>& vector) {
@@ -193,7 +199,7 @@ void rdf::Resources::readDocumentEnd(std::vector<std::string>& vector) {
  * @param resourcesNodo
  */
 void rdf::Resources::createObjet(std::vector<std::string> infoNodoCluster, Resource& resourcesNodo){
-    
+
     std::string memtotal = infoNodoCluster[1];
     std::string valueMemTotal = "";
     bool readValueTotal = false;
@@ -201,8 +207,8 @@ void rdf::Resources::createObjet(std::vector<std::string> infoNodoCluster, Resou
         if(memtotal[i] == 'k'){
             readValueTotal = false;
         }
-        if (readValueTotal) { 
-            valueMemTotal = valueMemTotal + memtotal[i]; 
+        if (readValueTotal) {
+            valueMemTotal = valueMemTotal + memtotal[i];
         }
         if(memtotal[i] == ':'){
             readValueTotal = true;
@@ -217,16 +223,16 @@ void rdf::Resources::createObjet(std::vector<std::string> infoNodoCluster, Resou
         if(memfree[i] == 'k'){
             readValueFree = false;
         }
-        if (readValueFree) { 
-            valueMemFree = valueMemFree + memfree[i]; 
+        if (readValueFree) {
+            valueMemFree = valueMemFree + memfree[i];
         }
         if(memfree[i] == ':'){
             readValueFree = true;
         }
     }
-    
-    
-    
+
+
+
     std::string frequency = infoNodoCluster[5];
     std::string valueFrequency = "";
     bool readValueFrequency = false;
@@ -234,28 +240,27 @@ void rdf::Resources::createObjet(std::vector<std::string> infoNodoCluster, Resou
         if(frequency[i] == 'k'){
             readValueFrequency = false;
         }
-        if (readValueFrequency) { 
-            valueFrequency = valueFrequency + frequency[i]; 
+        if (readValueFrequency) {
+            valueFrequency = valueFrequency + frequency[i];
         }
         if(frequency[i] == ':'){
             readValueFrequency = true;
         }
     }
-    
-    
-    
-    int cpus = 0; 
+
+
+
+    int cpus = 0;
     for (unsigned int i = 3; i < infoNodoCluster.size(); i++) {
         std::string valor = infoNodoCluster[i];
         if(!valor.compare(0,9,"processor")){
             cpus += 1;
         }
     }
-    
+
     resourcesNodo.CPUs = cpus;
     resourcesNodo.Frequency = atoi(valueFrequency.c_str());
     resourcesNodo.MemFree = atoi(valueMemFree.c_str());
     resourcesNodo.MemTotal = atoi(valueMemTotal.c_str());
-    
-}
 
+}

@@ -8,26 +8,26 @@
 
 
 
-int main()
+int main(int argc, char** argv)
 {
 
     //rdf::TrainManager _trainer;
     //_trainer.validateConfiguration();
     //_trainer.initPlatform();
     //_trainer.sendingNodes();
-   // _trainer.sendingResults();    
-    
+   // _trainer.sendingResults();
+
     rdf::DistributionManager _manager;
     _manager.transferResources();
 
     _manager.transferRanges();
-    
+
     rdf::Task _task;
     _task.setRank(1);
     _task.setTree(1);
     _task.setNode(2);
     _task.setStatus(0);
-         
+
     _manager.transferNodes(_task);
 
    // _manager.transferNodes(_task2);
@@ -35,15 +35,14 @@ int main()
    // _manager.transferNodes(_task4);
    // _manager.transferNodes(_task5);
    // _manager.transferNodes(_task6);
-    
-    
-      // _manager.transferResults();
-    
 
-    
-    
+   // _manager.transferResults();
 
-       
+
+
+
+
+
 
 
   return 0;

@@ -1,19 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   NodeResult.h
  * Author: gabo
  *
- * Created on May 22, 2018, 3:08 PM
+ * Class: rdf::NodeResult
+ * Needs revision: Yes. Needs real implementation.
+ * Description: This class intends to Reduce matrix results from different
+ * processing nodes. It's main method is reduce().
+ *
  */
 #include <vector>
 #include <iostream>
 #include <boost/serialization/access.hpp>
-#include "Task.h" 
+#include "Task.h"
 #include "MatrixBPC.h"
 
 
@@ -21,9 +19,9 @@
 #define NODERESULT_H
 
 namespace rdf {
-    
+
     class NodeResult {
-        
+
         /** This class allows to manage information about results of training
                 */
 
@@ -50,8 +48,8 @@ namespace rdf {
             NodeResult(const NodeResult& orig);
             virtual ~NodeResult();
             void reduce(NodeResult &Result);
-            
-            
+
+
             // GETTERS AND SETTERS MOST IMPORTANT VARIABLES
 
             rdf::bpc::Matrix<rdf::bpc::Cell> getMatrixResults() const {
@@ -84,9 +82,8 @@ namespace rdf {
             void setStatus(bool _status) {
                 this->_status = _status;
             }
-    };  
-    
+    };
+
 }
 
 #endif /* NODERESULT_H */
-

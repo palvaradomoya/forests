@@ -146,39 +146,3 @@ float Matrix<T>::CalculateFeatureResponse(int pointValue, int featureIndex, int 
 
 
 } /* rdf */
-
-//
-//template <typename T>
-//void MatrixBPC<T>::train() {
-//    assert(cellSize_ > 0);
-//    //    int nprocs = 2 * omp_get_num_procs();
-//    //    omp_set_num_threads(8);
-//    int numFeatures = featuresMatrix_.numFeatures_;
-//    int numThresholds = featuresMatrix_.numThresholds_;
-//#pragma omp parallel
-//        {
-//#pragma  omp for
-//    for (size_t x = 0; x < numFeatures; x++) {
-//        Features<T> features = featuresMatrix_.features_[x];
-//        T feature1 = features.first;
-//        T feature2 = features.second;
-//
-//
-//            for (size_t y = 0; y < numThresholds; y++) {
-//                T threshold = featuresMatrix_.thresholds_[y];
-//                T newNum = (feature1 + feature2) / 2;
-//                CellBPC<T> newCell;
-//                if (newNum >= threshold) {
-//                    // std::cerr << "index[" << x <<"][" << y <<"]" << "soy MAYOR" << std::endl;
-//                    newCell.left[5] += 1;
-//                    cells_[x * cellSize_ + y] = newCell;
-//                } else {
-//                    newCell.right[7] += 1;
-//                    cells_[x * cellSize_ + y] = newCell;
-//                    // std::cerr << "index[" << x <<"][" << y <<"]" << "soy menor" << std::endl;
-//                }
-//            }
-//        }
-//    }
-//}
-//

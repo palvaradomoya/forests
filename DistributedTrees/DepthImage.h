@@ -1,10 +1,11 @@
-/* 
+/*
  * File:   DepthImage.h
- * Authors: 
- * Gabriel Sanchez
- * Alejandro Gonzalez
- * Wilberth Varela
+ * Authors: Willberth Valera
  *
+ * Class: rdf::DepthImage
+ * Needs revision: Probably not.
+ * Description: This class implements readImage() abstract method in order
+ * to read a depth image.
  */
 
 #ifndef DEPTHIMAGE_H
@@ -19,7 +20,7 @@
 namespace rdf {
 
     /**
-     * This class works to read depth image 
+     * This class works to read depth image
      */
     class DepthImage : public StrategyImage {
     public:

@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   TrainManager.h
  * Author: gabo
  *
- * Created on May 26, 2018, 8:25 PM
+ * Class: rdf::TrainManager
+ * Needs revision: Yes. Needs further implementation.
+ * Description: This class is intended to handle the Global Training Process
+ * in order to make sure everything is executed correctly according to the
+ * initial configuration parameters.
  */
 
 #include <iostream>
@@ -22,8 +20,8 @@
 #include "Initializator.h"
 #include "ForestManager.h"
 
-#include <fstream>      // std::ifstream
-#include <iostream>     // std::cout
+#include <fstream>
+#include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -49,7 +47,7 @@ namespace rdf {
     public:
         TrainManager();
         TrainManager(const TrainManager& orig);
-        virtual ~TrainManager();   
+        virtual ~TrainManager();
         bool validateConfiguration();
         bool initPlatform();
         void sendingNodes();
@@ -59,10 +57,9 @@ namespace rdf {
 
     private:
         Initializator            _initializator;
-        rdf::DistributionManager _distributor; 
+        rdf::DistributionManager _distributor;
         //rdf::ForestManager            _manager;;
-    };  
+    };
 }
 
 #endif /* TRAINMANAGER_H */
-

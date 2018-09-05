@@ -1,21 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   Scheduler.h
  * Author: will
  *
- * Created on 16 de mayo de 2018, 09:48 AM
+ * Class: rdf::Scheduler
+ * Needs revision: Probably yes.
+ * Description: Class not yet understood. Implements the scheduler for
+ * the Training Tasks execution handling.
  */
 
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
 #include <vector>
-#include <iostream>     // std::cout
+#include <iostream>
 #include <stdio.h>
 #include <thread>
 #include <queue>
@@ -39,7 +36,7 @@
 
 namespace rdf {
     /*
-     * This class control the thrads its respective task and assing the new task a thread  
+     * This class control the threads its respective task and assing the new task a thread
      */
     class Scheduler {
     public:
@@ -76,7 +73,6 @@ namespace rdf {
         void lock();
         void checkQueues(std::vector<Estructura::Node> structure, std::priority_queue<rdf::Task> tasks);
 
-
         //void assingThreadTask(std::vector<Estructura::Node> structure, QueueTask::Queue tasks, int numberThreads);
         void sync();
         //std::priority_queue<Task, std::vector<Task>,comp> tasks;
@@ -86,4 +82,3 @@ namespace rdf {
 
 
 #endif /* SCHEDULER_H */
-

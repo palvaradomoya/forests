@@ -1,3 +1,9 @@
+/*
+ * File:   PointsSelect.cpp
+ * Author: will
+ *
+ */
+
 #include "PointsSelect.h"
 
 using namespace rdf;
@@ -12,7 +18,7 @@ PointsSelect::~PointsSelect() {
 }
 
 /**
- * This funtion generate to points to each algorithms 
+ * This funtion generate to points to each algorithms
  * @param type_Algorithm
  * @param points
  * @param NumPoints
@@ -21,11 +27,13 @@ PointsSelect::~PointsSelect() {
  * @param NumTree
  */
 void rdf::PointsSelect::generatedPoints(std::string type_Algorithm, std::vector<Estructura::Pixel>& points, int NumPoints, int height, int width, int NumTree){
-    
+
     std::vector<Estructura::Pixel> temporal;
+
+    //FIXME: Get rid of this "shotton" comparation
     if(type_Algorithm.compare(0,7,"shotton") == 0){
         generatShoton(temporal, NumPoints, height, width, NumTree);
-        
+
     }
     points = temporal;
 }
@@ -38,16 +46,16 @@ void rdf::PointsSelect::generatedPoints(std::string type_Algorithm, std::vector<
  * @param width
  * @param NumTree
  */
+  //REVIEW: What happens if same point is returned twice or more.
 void rdf::PointsSelect::generatShoton(std::vector<Estructura::Pixel>& points, int NumPoints, int height, int width, int NumTree){
-    
-    
+
+
     std::vector<int> start (NumTree,0);
     Estructura::Pixel pixelTemp;
-    
+
     for (int i = 0; i < NumPoints; i++) {
         pixelTemp.point = cv::Point((rand() % (height - 0)),((rand() % (width - 0))));
         pixelTemp.ubicacion = start;
         points.push_back(pixelTemp);
     }
 }
-

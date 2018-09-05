@@ -1,15 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
  * File:   Task.h
  * Author: gabo
  *
- * Created on May 17, 2018, 4:09 PM
+ * Class: rdf::Task
+ * Needs revision: Probably yes. Maybe more information needs to be send.
+ * Description: This class encapsulates the data that is sent by the master node
+ * to the slave nodes in order to start training them. This is the first
+ * training message that is sent, given that Features Matrix needs to be
+ * the same one for each node of the tree in each processing node.
+ *
  */
+
+
 #include <iostream>
 #include <boost/serialization/access.hpp>
 #include "FeaturesMat.h"
@@ -43,8 +45,8 @@ namespace rdf {
             Task( int _rank,  int _tree,  int _node, bool _status);
             Task(const Task& orig);
             virtual ~Task();
-            
-            
+
+
             //GETTERS AND SETTERS MOST IMPORTANT VARAIBLES
 
             void showTask();
@@ -103,4 +105,3 @@ namespace rdf {
 }
 
 #endif /* TASK_H */
-

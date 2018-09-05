@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   DistributionManager.h
  * Author: gabo
@@ -38,8 +32,8 @@ namespace mpi = boost::mpi;
 namespace rdf {
     /**
         *  Class that works on distribute all messages within MPI.BOOST
-        *  
-        * 
+        *
+        *
         */
     class DistributionManager {
 
@@ -48,40 +42,40 @@ namespace rdf {
         mpi::communicator                   _world;                 /*!< Mpi variable to identify the world of process */
         //std::vector<std::string>                          _clusterResourses;      /*< Mpi variable to manage the enviroment */
         std::vector<std::pair<int,int>>     _imageRanges;           /*!< Vector that includes ranges for each process */
-        //std::vector<Task>                                        _clusterResults;                                            
-        pair<int,int>                       _myRange;               /*!< Pair that allows ideantify the range  by the process */   
-        ImageManager                        _myImageManager;        /*!< It allows to get images from memory in the range*/  
-        rdf::ForestManager                  _forestManager;  
-        rdf::ImageDispatcher                _imageDistpatcher; 
+        //std::vector<Task>                                        _clusterResults;
+        pair<int,int>                       _myRange;               /*!< Pair that allows ideantify the range  by the process */
+        ImageManager                        _myImageManager;        /*!< It allows to get images from memory in the range*/
+        rdf::ForestManager                  _forestManager;
+        rdf::ImageDispatcher                _imageDistpatcher;
         Scheduler                           _scheduler;
-        
-            
+
+
     public:
         DistributionManager();
         DistributionManager(const DistributionManager& orig);
         virtual ~DistributionManager();
-            
+
         /**
                 *  ALL THIS FUNCTIONS ARE FOR SENDING MESSAGES BETWEEN SLAVE NODES AND MASTER NODE
                 *  All documentation about it is in  DistributionManager.cpp
                 */
         void waitingResults();
         void sendingResults();
-        
+
         void transferResources();
         void transferRanges();
-        
+
         void transferNodes(Task &pTask);
         void transferResults();
-        
+
         void transferBeacon();
 
         void transferTrainStart(ForestManager &pForest);
-        
-        void transferBestFeature(rdf::bpc::BestFeatureMsg pFeature); 
+
+        void transferBestFeature(rdf::bpc::BestFeatureMsg pFeature);
         void transferFinish();
-        
-        
+
+
         /**
                 *  GETTERS AND SETTERS FOR MAIN VARIABLES
                 */
@@ -111,4 +105,3 @@ namespace rdf {
     };
 }
 #endif /* DISTRIBUTIONMANAGER_H */
-

@@ -8,16 +8,12 @@ rdf::Resource::Resource(const Resource& orig) {
     MemTotal    =   orig.MemTotal;
     Frequency   =   orig.Frequency;
     CPUs        =   orig.CPUs;
-    
+
 }
 
 rdf::Resource::~Resource() {
 }
 
-
-/**
- * This funtion display of the resources of the cluster node
- */
 void rdf::Resource::displayResource(){
     std::cout << "Memoria total: "  <<  rdf::Resource::MemTotal << "\n";
     std::cout << "Memoria libre: "  <<  rdf::Resource::MemFree << "\n";
