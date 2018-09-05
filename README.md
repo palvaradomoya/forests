@@ -10,3 +10,15 @@ It is still in a very early implementation stage and it will take a long time un
 The first fully functional distributed implementation of the body-part classification approach proposed by Shotton et al. will be hopefully available by the end of 2018.
 
 Copyright 2018.  Tecnológico de Costa Rica, SIPLab
+
+
+
+Set up:
+
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential git scons cmake pkg-config
+sudo apt install libopencv-dev python-opencv
+sudo apt install mpich
+sudo apt install libboost-all-dev
+
