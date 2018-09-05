@@ -250,14 +250,6 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
       std::cout << "Need more than 1 processes to play around." << std::endl;
     }
     else {
-      // if(_world.rank() == 0){
-      //   std::cout << "Hey, I am MASTER" << '\n';
-      // }
-      // else{
-      //   std::cout << "Hey, I am:" << _world.rank() << '\n';
-      // }
-
-
   bpc::FeaturesMat featMat;
   if(_world.rank() == 0){
     featMat.SetThresholdsNumRange(20, 200);
@@ -267,16 +259,21 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
   }
   broadcast(_world, featMat, 0);
 
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  featMat.Print();
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "------------------------------------------" << std::endl;
-  std::cout << "Process #" << _world.rank() << " says " << std::endl;
+  if(_world.rank() != 0){
+    for (size_t i = 0; i < _world.size() - 1; i++) {
+      /* code */
+    }
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    featMat.Print();
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    std::cout << "Process #" << _world.rank() << " says " << std::endl;
+  }
 
 
     }

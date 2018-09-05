@@ -13,7 +13,7 @@ int main(int argc, char** argv){
 
 
       rdf::DistributionManager _manager;
-      _manager.transferMatrices(2);
+      _manager.transferMatrices(4);
 
 
 // std::cout << "Hello worlds!s" << '\n';
