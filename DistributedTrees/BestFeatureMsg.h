@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   BestFeatureMsg.h
  * Author: gabo
  *
@@ -17,7 +17,7 @@
 
 #include "Features.h"
 namespace rdf {
-    
+
     namespace bpc {
 
 class BestFeatureMsg {
@@ -71,14 +71,13 @@ class BestFeatureMsg {
             }
             Features    _feature;
             float       _threshold;
-            int         _treeNumber; 
+            int         _treeNumber;
             int         _nodeNumber;
 
 
         };
-    
+
     }
 }
 
 #endif /* BESTFEATUREMSG_H */
-
