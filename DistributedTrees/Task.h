@@ -86,7 +86,8 @@ namespace rdf {
             rdf::bpc::FeaturesMat getFeatureMatrix() const {
                 return _featureMatrix;
             }
-
+            //FIXME // NOTE: copied result
+            //can be optimized
             void setFeatureMatrix(rdf::bpc::FeaturesMat _featureMatrix) {
                 this->_featureMatrix = _featureMatrix;
             }

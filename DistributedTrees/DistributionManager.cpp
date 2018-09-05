@@ -257,24 +257,26 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
     featMat.SetMatrixSize(10,10);
     featMat.GenerateVectors();
   }
-  broadcast(_world, featMat, 0);
+  rdf::Task myTask;
+  myTask.setTree(1);
+  myTask.setNode(1);
+  myTask.setFeatureMatrix(featMat); //FIXME // NOTE: copied result
+                                                //can be optimized
+  broadcast(_world, myTask, 0);
 
-  if(_world.rank() != 0){
-    for (size_t i = 0; i < _world.size() - 1; i++) {
-      /* code */
-    }
+  int processRank = _world.rank();
+  myTask.setRank(processRank);
+
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
-    featMat.Print();
+    myTask.getFeatureMatrix().Print();
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
-    std::cout << "Process #" << _world.rank() << " says " << std::endl;
+    std::cout << "Process #" << myTask.getRank() << " says " << std::endl;
   }
 
-
-    }
 }
