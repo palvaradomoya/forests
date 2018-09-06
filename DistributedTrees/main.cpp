@@ -7,6 +7,7 @@
 #include "Resources.h"
 
 
+using namespace rdf;
 
 int main(int argc, char** argv){
 
@@ -44,6 +45,31 @@ int main(int argc, char** argv){
 
    // _manager.transferResults();
 
+
+
+
+
+   //
+   // bpc::FeaturesMat featMat1;
+   //
+   // featMat1.SetThresholdsNumRange(20, 200);
+   // featMat1.SetFeaturesNumRange(20, 200);
+   // featMat1.SetMatrixSize(2,2);
+   // featMat1.GenerateVectors();
+   // std::cout << "------------------------------------------" << std::endl;
+   // std::cout << "------------------------------------------" << std::endl;
+   // featMat1.Print();
+   // std::cout << "===========================================" << std::endl;
+   // std::cout << "===========================================" << std::endl;
+   //
+   // bpc::FeaturesMat featMat2;
+   // featMat2 = featMat1;
+   // std::cout << "------------------------------------------" << std::endl;
+   // std::cout << "------------------------------------------" << std::endl;
+   // featMat2.Print();
+   // std::cout << "===========================================" << std::endl;
+   // std::cout << "===========================================" << std::endl;
+   //
 
 
 

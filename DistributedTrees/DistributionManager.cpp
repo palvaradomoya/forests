@@ -245,6 +245,57 @@ void rdf::DistributionManager::transferTrainStart(ForestManager & pForest) {
     //}
 }
 
+// void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
+//   int rank = _world.rank();
+//     if (_world.size() <= 1) {
+//       std::cout << "Need more than 1 processes to play around." << std::endl;
+//     }
+//     else {
+//   bpc::FeaturesMat featMat;
+//   if(_world.rank() == 0){
+//     featMat.SetThresholdsNumRange(20, 200);
+//     featMat.SetFeaturesNumRange(20, 200);
+//     featMat.SetMatrixSize(2,2);
+//     featMat.GenerateVectors();
+//   }
+//   rdf::Task *myTask = new rdf::Task();
+//   myTask->setTree(1);
+//   myTask->setNode(1);
+//   myTask->setFeatureMatrix(featMat); //FIXME // NOTE: copied result
+//                                                 //can be optimized
+//   broadcast(_world, myTask, 0);
+//
+//   int processRank = _world.rank();
+//   myTask->setRank(processRank);
+//   std::cout << "Process #" << rank << " says " << std::endl;
+//   std::cout << "#########################################" << std::endl;
+//   std::cout << "#########################################" << std::endl;
+//   myTask->getFeatureMatrix().Print();
+//   std::cout << "#########################################" << std::endl;
+//   std::cout << "#########################################" << std::endl;
+//
+//  //  if (rank == 0) {
+//  //   std::vector<rdf::Task*> allTasks;
+//  //   gather(_world, myTask, allTasks, 0);
+//  //   for (int proc = 0; proc < _world.size(); ++proc){
+//  //     std::cout << "Process #" << proc << " says " << std::endl;
+//  //     std::cout << "------------------------------------------" << std::endl;
+//  //     std::cout << "------------------------------------------" << std::endl;
+//  //     allTasks[proc]->getFeatureMatrix().Print();
+//  //     std::cout << "===========================================" << std::endl;
+//  //     std::cout << "===========================================" << std::endl;
+//  //     std::cout << "Process #" << proc << " says " << std::endl;
+//  //   }
+//  // } else {
+//  //   gather(_world, myTask, 0);
+//  // }
+//
+//   }
+//
+// }
+
+
+
 void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
     if (_world.size() <= 1) {
       std::cout << "Need more than 1 processes to play around." << std::endl;
@@ -254,7 +305,7 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
   if(_world.rank() == 0){
     featMat.SetThresholdsNumRange(20, 200);
     featMat.SetFeaturesNumRange(20, 200);
-    featMat.SetMatrixSize(10,10);
+    featMat.SetMatrixSize(2,2);
     featMat.GenerateVectors();
   }
   rdf::Task myTask;
