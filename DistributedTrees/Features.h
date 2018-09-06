@@ -54,6 +54,8 @@ namespace rdf {
             ar & feature1_.y;
             ar & feature2_.x;
             ar & feature2_.y;
+            // ar & feature1_.y;
+            // ar & feature2_.x;
           }
           /* ==== Serialization ==== */
 
