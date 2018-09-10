@@ -74,7 +74,7 @@ mainn = common_env.Program( target="mainn", source=sources)
 
 test = common_env.Command( target = "output0",
                 source = "mainn",
-                action = ["mpiexec -np 4 ./mainn"] )
-                # action = ["./mainn"] )
+                # action = ["mpiexec -np 4 ./mainn"] )
+                action = ["./mainn"] )
                 #action = ["mpiexec -hostfile host_file ./main0"] )
 AlwaysBuild( test )

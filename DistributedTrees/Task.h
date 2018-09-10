@@ -12,34 +12,42 @@
  */
 
 
-#include <iostream>
-#include <boost/serialization/access.hpp>
-#include "FeaturesMat.h"
-#include "Config.h"
 
 #ifndef TASK_H
 #define TASK_H
+
+#include <iostream>
+// #include <boost/serialization/access.hpp>
+#include "FeaturesMat.h"
+#include "Config.h"
+
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 namespace rdf {
     /** This class encapsulate a task in the process of training trees
         */
     class Task {
         private:
-            friend class boost::serialization::access;
-            template<class Archive>
-            void serialize(Archive & ar, const unsigned int version)
-            {
-                ar & _rank;
-                ar & _tree;
-                ar & _node;
-                ar & _status;
-                ar & _featureMatrix;
-            }
             int     _rank;                              /*!< Number of process */
             int     _tree;                              /*!< Tree Number */
             int     _node;                              /*!< Node Number*/
             bool    _status;                            /*!< Number of process */
-            rdf::bpc::FeaturesMat _featureMatrix;       /*!< Feature Matrix*/
+            bpc::FeaturesMat _featureMatrix;       /*!< Feature Matrix*/
 
+            friend class boost::serialization::access;
+            template<class Archive>
+            void serialize(Archive & ar, const unsigned int version)
+            {
+              ar & _rank;
+              ar & _tree;
+              ar & _node;
+              ar & _status;
+              ar & _featureMatrix;
+            }
         public:
             Task();
             Task( int _rank,  int _tree,  int _node, bool _status);
@@ -83,12 +91,12 @@ namespace rdf {
                 this->_tree = _tree;
             }
 
-            rdf::bpc::FeaturesMat getFeatureMatrix() const {
+            bpc::FeaturesMat getFeatureMatrix() const {
                 return _featureMatrix;
             }
             //FIXME // NOTE: copied result
             //can be optimized
-            void setFeatureMatrix(rdf::bpc::FeaturesMat _featureMatrix) {
+            void setFeatureMatrix(bpc::FeaturesMat _featureMatrix) {
                 this->_featureMatrix = _featureMatrix;
             }
             bool operator< (const Task& pTask) const
