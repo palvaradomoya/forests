@@ -13,8 +13,84 @@ int main(int argc, char** argv){
 
 
 
-      rdf::DistributionManager _manager;
-      _manager.transferMatrices(4);
+      // rdf::DistributionManager _manager;
+      // _manager.transferMatrices(4);
+
+      Task myTask;
+      Task myTask2;
+      bpc::FeaturesMat feat;
+      bpc::FeaturesMat feat2;
+      bpc::FeaturesMat feat3;
+      feat.SetThresholdsNumRange(20, 200);
+      feat.SetFeaturesNumRange(20, 200);
+      feat.SetMatrixSize(2,2);
+      feat.GenerateVectors();
+      feat2.SetThresholdsNumRange(200, 400);
+      feat2.SetFeaturesNumRange(200, 400);
+      feat2.SetMatrixSize(2,2);
+      feat2.GenerateVectors();
+      std::cout << "------------------------------------------" << std::endl;
+      std::cout << "------------------------------------------" << std::endl;
+      feat.Print();
+      std::cout << "------------------------------------------" << std::endl;
+      std::cout << "------------------------------------------" << std::endl;
+      // feat2 = feat;
+      std::cout << "+++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+      std::cout << "+++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+      feat2.Print();
+      std::cout << "+++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+      std::cout << "+++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+
+
+      myTask.setTree(1);
+      myTask.setNode(1);
+      myTask.setFeatureMatrix(feat2);
+      // myTask2.setFeatureMatrix(feat);
+
+
+
+      std::cout << "==========================================" << std::endl;
+      std::cout << "==========================================" << std::endl;
+      myTask.getFeatureMatrix().Print();
+      std::cout << "==========================================" << std::endl;
+      std::cout << "==========================================" << std::endl;
+
+      // myTask2 = myTask;
+      feat3 =  myTask.getFeatureMatrix();
+      // myTask2.getFeatureMatrix().Print();
+
+
+      // Save filename data contained in Info object
+      {
+        // Create an output archive
+        std::ofstream ofs( "store.dat" );
+        boost::archive::text_oarchive ar(ofs);
+
+        // Save the data
+        ar & feat;
+      }
+
+      // Restore from saved data and print to verify contents
+      {
+          // Create and input archive
+          std::ifstream ifs( "store.dat" );
+          boost::archive::text_iarchive ar(ifs);
+
+          // Load the data
+          ar & feat2;
+      }
+      std::cout << "\n\n\n\n";
+      // myTask2.getFeatureMatrix().Print();
+      feat.Print();
+      std::cout << "\n\n";
+      feat2.Print();
+      // myTask.getFeatureMatrix().Print();
+      std::cout << "\n\n";
+
+
+
+      // feat3.Print();
+
 
 
 // std::cout << "Hello worlds!s" << '\n';
@@ -70,11 +146,6 @@ int main(int argc, char** argv){
    // std::cout << "===========================================" << std::endl;
    // std::cout << "===========================================" << std::endl;
    //
-
-
-
-
-
 
 
   return 0;

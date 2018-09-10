@@ -299,8 +299,8 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
   myTask.setNode(1);
   myTask.setFeatureMatrix(featMat); //FIXME // NOTE: copied result
                                                 //can be optimized
-  // broadcast(_world, myTask, 0);
-  broadcast(_world, featMat, 0);
+  broadcast(_world, myTask, 0);
+  // broadcast(_world, featMat, 0);
 
   int processRank = _world.rank();
   myTask.setRank(processRank);
@@ -309,8 +309,8 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
-    // myTask.getFeatureMatrix().Print();
-    featMat.Print();
+    myTask.getFeatureMatrix().Print();
+    // featMat.Print();
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
@@ -320,21 +320,21 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
       if (processRank == 0) {
        std::vector<rdf::Task> allTasks;
        std::vector<rdf::bpc::FeaturesMat> allMatrices;
-       // gather(_world, myTask, allTasks, 0);
-       gather(_world, featMat, allMatrices, 0);
+       gather(_world, myTask, allTasks, 0);
+       // gather(_world, featMat, allMatrices, 0);
        for (int proc = 0; proc < _world.size(); ++proc){
          std::cout << "Process #" << proc << " says " << std::endl;
-         std::cout << "=========================hol==================" << std::endl;
          std::cout << "===========================================" << std::endl;
-         // allTasks[proc].getFeatureMatrix().Print();
-         allMatrices[proc].Print();
+         std::cout << "===========================================" << std::endl;
+         allTasks[proc].getFeatureMatrix().Print();
+         // allMatrices[proc].Print();
          std::cout << "===========================================" << std::endl;
          std::cout << "===========================================" << std::endl;
          std::cout << "Process #" << proc << " says " << std::endl;
        }
      } else {
-       // gather(_world, myTask, 0);
-       gather(_world, featMat, 0);
+       gather(_world, myTask, 0);
+       // gather(_world, featMat, 0);
      }
   }
 

@@ -111,14 +111,14 @@ namespace rdf {
       template<class Archive>
       void serialize(Archive & ar, const unsigned int version)
       {
-        ar & thresholds_;
-        ar & features_;
         ar & numFeatures_;
         ar & numThresholds_;
         ar & thresholdsLowRange_;
         ar & thresholdsHighRange_;
         ar & featuresLowRange_;
         ar & featuresHighRange_;
+        ar & thresholds_;
+        ar & features_;
       }
 
       //!< Thresholds vector.
