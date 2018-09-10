@@ -274,21 +274,6 @@ void rdf::DistributionManager::transferTrainStart(ForestManager & pForest) {
 //   std::cout << "#########################################" << std::endl;
 //   std::cout << "#########################################" << std::endl;
 //
-//  //  if (rank == 0) {
-//  //   std::vector<rdf::Task*> allTasks;
-//  //   gather(_world, myTask, allTasks, 0);
-//  //   for (int proc = 0; proc < _world.size(); ++proc){
-//  //     std::cout << "Process #" << proc << " says " << std::endl;
-//  //     std::cout << "------------------------------------------" << std::endl;
-//  //     std::cout << "------------------------------------------" << std::endl;
-//  //     allTasks[proc]->getFeatureMatrix().Print();
-//  //     std::cout << "===========================================" << std::endl;
-//  //     std::cout << "===========================================" << std::endl;
-//  //     std::cout << "Process #" << proc << " says " << std::endl;
-//  //   }
-//  // } else {
-//  //   gather(_world, myTask, 0);
-//  // }
 //
 //   }
 //
@@ -302,18 +287,20 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
     }
     else {
   bpc::FeaturesMat featMat;
+  rdf::Task myTask;
+
   if(_world.rank() == 0){
     featMat.SetThresholdsNumRange(20, 200);
     featMat.SetFeaturesNumRange(20, 200);
     featMat.SetMatrixSize(2,2);
     featMat.GenerateVectors();
   }
-  rdf::Task myTask;
   myTask.setTree(1);
   myTask.setNode(1);
   myTask.setFeatureMatrix(featMat); //FIXME // NOTE: copied result
                                                 //can be optimized
-  broadcast(_world, myTask, 0);
+  // broadcast(_world, myTask, 0);
+  broadcast(_world, featMat, 0);
 
   int processRank = _world.rank();
   myTask.setRank(processRank);
@@ -322,12 +309,33 @@ void rdf::DistributionManager::transferMatrices(int numberOfMatrices) {
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
-    myTask.getFeatureMatrix().Print();
+    // myTask.getFeatureMatrix().Print();
+    featMat.Print();
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     std::cout << "Process #" << myTask.getRank() << " says " << std::endl;
+
+      if (processRank == 0) {
+       std::vector<rdf::Task> allTasks;
+       std::vector<rdf::bpc::FeaturesMat> allMatrices;
+       // gather(_world, myTask, allTasks, 0);
+       gather(_world, featMat, allMatrices, 0);
+       for (int proc = 0; proc < _world.size(); ++proc){
+         std::cout << "Process #" << proc << " says " << std::endl;
+         std::cout << "=========================hol==================" << std::endl;
+         std::cout << "===========================================" << std::endl;
+         // allTasks[proc].getFeatureMatrix().Print();
+         allMatrices[proc].Print();
+         std::cout << "===========================================" << std::endl;
+         std::cout << "===========================================" << std::endl;
+         std::cout << "Process #" << proc << " says " << std::endl;
+       }
+     } else {
+       // gather(_world, myTask, 0);
+       gather(_world, featMat, 0);
+     }
   }
 
 }
