@@ -19,8 +19,11 @@
 // include headers that implement a archive in simple text format
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
-
+#include <boost/serialization/split_member.hpp>
 #include <boost/serialization/vector.hpp>
+
+#include <boost/serialization/level.hpp>
+#include <boost/serialization/tracking.hpp>
 
 #include "Features.h"
 
@@ -107,19 +110,50 @@ namespace rdf {
       //! Generates random vector of features according within set ranges.
       void GenerateFeaturesVector();
 
+      //! Private method.
+      //! Preapares the object for usage/serialization
+      void PrepareFeaturesMatrix(int);
+
 
       template<class Archive>
-      void serialize(Archive & ar, const unsigned int version)
+      void save(Archive & ar, const unsigned int version) const
       {
-        ar & numFeatures_;
-        ar & numThresholds_;
-        ar & thresholdsLowRange_;
-        ar & thresholdsHighRange_;
-        ar & featuresLowRange_;
-        ar & featuresHighRange_;
-        ar & thresholds_;
-        ar & features_;
+        ar << numFeatures_;
+        ar << numThresholds_;
+        ar << thresholdsLowRange_;
+        ar << thresholdsHighRange_;
+        ar << featuresLowRange_;
+        ar << featuresHighRange_;
+        ar << thresholds_;
+        ar << features_;
       }
+
+      template<class Archive>
+      void load(Archive & ar, const unsigned int version)
+      {
+        // PrepareFeaturesMatrix(1);
+        ar >> numFeatures_;
+        ar >> numThresholds_;
+        ar >> thresholdsLowRange_;
+        ar >> thresholdsHighRange_;
+        ar >> featuresLowRange_;
+        ar >> featuresHighRange_;
+        // PrepareFeaturesMatrix(0);
+        ar >> thresholds_;
+        ar >> features_;
+      }
+
+      // elminate serialization overhead at the cost of
+      // never being able to increase the version.
+      // BOOST_CLASS_IMPLEMENTATION(FeaturesMat, boost::serialization::object_serializable);
+
+      // eliminate object tracking (even if serialized through a pointer)
+      // at the risk of a programming error creating duplicate objects.
+      // BOOST_CLASS_TRACKING(FeaturesMat, boost::serialization::track_never);
+
+
+      BOOST_SERIALIZATION_SPLIT_MEMBER()
+
 
       //!< Thresholds vector.
       std::vector<float> thresholds_;

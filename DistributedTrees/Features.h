@@ -43,6 +43,10 @@ namespace rdf {
             Feature SetFeature2(float x, float y);
             Feature GetFeature1();
             Feature GetFeature2();
+            float x1;
+            float y1;
+            float x2;
+            float y2;
         private:
 
           /* --- Serialization --- */
@@ -50,12 +54,14 @@ namespace rdf {
           template<class Archive>
           void serialize(Archive & ar, const unsigned int version)
           {
+            // ar & x1;
+            // ar & y1;
+            // ar & x2;
+            // ar & y2;
             ar & feature1_.x;
             ar & feature1_.y;
             ar & feature2_.x;
             ar & feature2_.y;
-            // ar & feature1_.y;
-            // ar & feature2_.x;
           }
           /* ==== Serialization ==== */
 

@@ -24,12 +24,12 @@ Features::Features(float feat1_x, float feat1_y, float feat2_x, float feat2_y) {
 }
 
 Features::Features(const Features& orig) {
-  // feature1_ = orig.feature1_;
-  // feature2_ = orig.feature2_;
-  this->feature1_.x = orig.feature1_.x;
-  this->feature1_.y = orig.feature1_.y;
-  this->feature2_.x = orig.feature2_.x;
-  this->feature2_.y = orig.feature2_.y;
+  feature1_ = orig.feature1_;
+  feature2_ = orig.feature2_;
+  // this->feature1_.x = orig.feature1_.x;
+  // this->feature1_.y = orig.feature1_.y;
+  // this->feature2_.x = orig.feature2_.x;
+  // this->feature2_.y = orig.feature2_.y;
 }
 
 Feature Features::SetFeature1(float x, float y){

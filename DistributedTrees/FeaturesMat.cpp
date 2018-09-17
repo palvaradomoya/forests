@@ -38,6 +38,22 @@ FeaturesMat::~FeaturesMat() {
 
 }
 
+void FeaturesMat::PrepareFeaturesMatrix(int isTrue) {
+  if (isTrue){
+    thresholdsLowRange_ = 0;
+    thresholdsHighRange_ = 0;
+    featuresLowRange_ = 0;
+    featuresHighRange_ = 0;
+    numFeatures_ = 0;
+    numThresholds_ = 0;
+    thresholds_.clear();
+    features_.clear();
+  } else{
+    features_.resize(numFeatures_);
+    thresholds_.resize(numThresholds_);
+  }
+
+}
 void FeaturesMat::SetMatrixSize(int x, int y) {
     numFeatures_ = x; //Matrix ROWS
     numThresholds_ = y; //Matrix COLS

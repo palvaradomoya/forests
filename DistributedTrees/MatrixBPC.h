@@ -64,7 +64,7 @@ namespace rdf {
 
             friend class boost::serialization::access;
 
-            template<class Archive>
+   template<class Archive>
    void save(Archive & ar, const unsigned int version) const
    {
      ar & featuresMatrix_;

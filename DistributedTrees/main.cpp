@@ -21,6 +21,7 @@ int main(int argc, char** argv){
       bpc::FeaturesMat feat;
       bpc::FeaturesMat feat2;
       bpc::FeaturesMat feat3;
+      bpc::FeaturesMat feat4;
       feat.SetThresholdsNumRange(20, 200);
       feat.SetFeaturesNumRange(20, 200);
       feat.SetMatrixSize(2,2);
@@ -56,28 +57,27 @@ int main(int argc, char** argv){
       std::cout << "==========================================" << std::endl;
 
       // myTask2 = myTask;
-      feat3 =  myTask.getFeatureMatrix();
+      // feat3 =  myTask.getFeatureMatrix();
       // myTask2.getFeatureMatrix().Print();
 
-
+      std::ofstream ofs( "store.dat" );
       // Save filename data contained in Info object
       {
         // Create an output archive
-        std::ofstream ofs( "store.dat" );
-        boost::archive::text_oarchive ar(ofs);
-
+        // std::ofstream ofs( "store.dat" );
+        boost::archive::text_oarchive oa(ofs);
         // Save the data
-        ar & feat;
+        oa << feat;
       }
 
       // Restore from saved data and print to verify contents
       {
           // Create and input archive
           std::ifstream ifs( "store.dat" );
-          boost::archive::text_iarchive ar(ifs);
+          boost::archive::text_iarchive ia(ifs);
 
           // Load the data
-          ar & feat2;
+          ia >> feat2;
       }
       std::cout << "\n\n\n\n";
       // myTask2.getFeatureMatrix().Print();
