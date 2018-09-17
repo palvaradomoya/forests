@@ -17,41 +17,44 @@ Features::Features() {
 }
 
 Features::Features(float feat1_x, float feat1_y, float feat2_x, float feat2_y) {
-  feature1_.x = feat1_x;
-  feature1_.y = feat1_y;
-  feature2_.x = feat2_x;
-  feature2_.y = feat2_y;
+  x1 = feat1_x;
+  y1 = feat2_y;
+  x2 = feat1_y;
+  y2 = feat2_x;
 }
 
 Features::Features(const Features& orig) {
-  feature1_ = orig.feature1_;
-  feature2_ = orig.feature2_;
-  // this->feature1_.x = orig.feature1_.x;
-  // this->feature1_.y = orig.feature1_.y;
-  // this->feature2_.x = orig.feature2_.x;
-  // this->feature2_.y = orig.feature2_.y;
+  x1 = orig.x1;
+  y1 = orig.y1;
+  x2 = orig.x2;
+  y2 = orig.y2;
 }
 
 Feature Features::SetFeature1(float x, float y){
-  feature1_.x = x;
-  feature1_.y = y;
+    x1 = x;
+    y1 = y;
   return feature1_;
 }
 
 Feature Features::SetFeature2(float x, float y){
-  feature2_.x = x;
-  feature2_.y = y;
+  x2 = x;
+  y2 = y;
   return feature2_;
 }
 
-Feature Features::GetFeature1(){
-  return feature1_;
+float Features::GetFeature1X(){
+  return x1;
+}
+float Features::GetFeature1Y(){
+  return y1;
 }
 
-Feature Features::GetFeature2(){
-  return feature2_;
+float Features::GetFeature2X(){
+  return x2;
 }
-
+float Features::GetFeature2Y(){
+  return y2;
+}
 
 Features::~Features() {
 }

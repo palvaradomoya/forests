@@ -111,10 +111,10 @@ template <typename T>     //TODO - Real implementation
 float Matrix<T>::CalculateFeatureResponse(int pointValue, int featureIndex, int thresholdIndex){
   Features currFeatures = featuresMatrix_.features_[featureIndex];
   int currThreshold = featuresMatrix_.thresholds_[thresholdIndex];
-  float x1 = currFeatures.GetFeature1().x;
-  float x2 = currFeatures.GetFeature2().x;
-  float y1 = currFeatures.GetFeature1().y;
-  float y2 = currFeatures.GetFeature2().y;
+  float x1 = currFeatures.GetFeature1X();
+  float x2 = currFeatures.GetFeature1Y();
+  float y1 = currFeatures.GetFeature2X();
+  float y2 = currFeatures.GetFeature2Y();
   // std::uniform_int_distribution<int> probability_50(0,1);
   int isTrue = 1; //TODO IMPLEMENT PROBABILITY
   float result;

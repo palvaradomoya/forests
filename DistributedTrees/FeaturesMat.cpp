@@ -115,10 +115,10 @@ void FeaturesMat::Print() {
     Features feat;
     for (size_t i = 0; i < numFeatures_; i++) {
         feat = features_[i];
-        randomFeature1X = feat.GetFeature1().x;
-        randomFeature1Y = feat.GetFeature1().y;
-        randomFeature2X = feat.GetFeature2().x;
-        randomFeature2Y = feat.GetFeature2().y;
+        randomFeature1X = feat.GetFeature1X();
+        randomFeature1Y = feat.GetFeature1Y();
+        randomFeature2X = feat.GetFeature2X();
+        randomFeature2Y = feat.GetFeature2Y();
         for (size_t j = 0; j < numThresholds_; j++) {
             randomThreshold = thresholds_[j];
             cout << "[" << i << "][" << j << "]: T=" << randomThreshold

@@ -131,14 +131,14 @@ namespace rdf {
       template<class Archive>
       void load(Archive & ar, const unsigned int version)
       {
-        // PrepareFeaturesMatrix(1);
+        PrepareFeaturesMatrix(1);
         ar >> numFeatures_;
         ar >> numThresholds_;
         ar >> thresholdsLowRange_;
         ar >> thresholdsHighRange_;
         ar >> featuresLowRange_;
         ar >> featuresHighRange_;
-        // PrepareFeaturesMatrix(0);
+        PrepareFeaturesMatrix(0);
         ar >> thresholds_;
         ar >> features_;
       }
